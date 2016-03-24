@@ -70,11 +70,12 @@ static CGFloat g_BugFixWidthInset = 0.0f;
 
 static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 {
-	CGFloat w_scale = (target.width / (source.width + g_BugFixWidthInset));
-
-	CGFloat h_scale = (target.height / source.height);
-
-	return ((w_scale < h_scale) ? w_scale : h_scale);
+//	CGFloat w_scale = (target.width / (source.width + g_BugFixWidthInset));
+//
+//	CGFloat h_scale = (target.height / source.height);
+//
+//	return ((w_scale < h_scale) ? w_scale : h_scale);
+    return target.width / (source.width + g_BugFixWidthInset);
 }
 
 #pragma mark - ReaderContentView class methods
