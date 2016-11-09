@@ -70,12 +70,13 @@ static CGFloat g_BugFixWidthInset = 0.0f;
 
 static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 {
-//	CGFloat w_scale = (target.width / (source.width + g_BugFixWidthInset));
-//
-//	CGFloat h_scale = (target.height / source.height);
-//
+	CGFloat w_scale = (target.width / (source.width + g_BugFixWidthInset));
+
+	CGFloat h_scale = (target.height / source.height);
+
 //	return ((w_scale < h_scale) ? w_scale : h_scale);
-    return target.width / (source.width + g_BugFixWidthInset);
+    
+    return w_scale;
 }
 
 #pragma mark - ReaderContentView class methods
@@ -104,6 +105,8 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 - (void)updateMinimumMaximumZoom
 {
 	CGFloat zoomScale = zoomScaleThatFits(self.bounds.size, theContentPage.bounds.size);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReaderContentView.updateMinimumMaximumZoom" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:zoomScale] forKey:@"zoomScale"]];
 
 	self.minimumZoomScale = zoomScale; self.maximumZoomScale = (zoomScale * ZOOM_MAXIMUM);
 
